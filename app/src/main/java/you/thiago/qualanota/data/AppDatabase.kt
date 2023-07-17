@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import you.thiago.qualanota.data.dao.ItemDao
 import you.thiago.qualanota.data.model.Item
 
-@Database(entities = [Item::class], version = 1)
+@Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

@@ -13,7 +13,7 @@ interface ItemDao {
     @Query("SELECT * FROM item")
     fun getAll(): List<Item>
 
-    @Query("SELECT * FROM item WHERE uid IN (:itemIds)")
+    @Query("SELECT * FROM item WHERE id IN (:itemIds)")
     fun loadAllByIds(itemIds: IntArray): List<Item>
 
     @Query("SELECT * FROM item WHERE title LIKE :title AND owner LIKE :owner LIMIT 1")
