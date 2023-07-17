@@ -1,9 +1,10 @@
-package you.thiago.qualanota
+package you.thiago.qualanota.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import you.thiago.qualanota.R
 
 class MainActivity : AppCompatActivity() {
 
