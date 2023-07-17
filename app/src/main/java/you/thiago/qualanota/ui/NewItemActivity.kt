@@ -1,5 +1,6 @@
 package you.thiago.qualanota.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,9 @@ class NewItemActivity : AppCompatActivity() {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 Database.get().itemDao().insert(item)
+
+                setResult(Activity.RESULT_OK)
+                finish()
             }
         }
     }
