@@ -3,7 +3,6 @@ package you.thiago.qualanota.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import you.thiago.qualanota.R
@@ -24,10 +23,10 @@ class ItemAdapter(private val list: List<Item>) : RecyclerView.Adapter<ItemAdapt
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val title = view.findViewById<TextView>(R.id.labelTitle)
-        private val owner = view.findViewById<TextView>(R.id.labelOwner)
-        private val rating = view.findViewById<TextView>(R.id.labelRating)
-        private val review = view.findViewById<TextView>(R.id.labelReview)
+        private val title = view.findViewById<TextView>(R.id.title)
+        private val owner = view.findViewById<TextView>(R.id.owner)
+        private val rating = view.findViewById<TextView>(R.id.rating)
+        private val review = view.findViewById<TextView>(R.id.review)
 
         fun setupItem(item: Item) {
             title.text = item.title
