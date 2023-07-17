@@ -1,4 +1,4 @@
-package you.thiago.qualanota.ui
+package you.thiago.qualanota.ui.itemreview
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,14 +10,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
-import you.thiago.qualanota.data.model.Item
+import you.thiago.qualanota.data.model.ItemReview
 
 class NewItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_new_item)
+        setContentView(R.layout.activity_review_item)
         setupInterface()
     }
 
@@ -28,7 +28,7 @@ class NewItemActivity : AppCompatActivity() {
         val review = findViewById<EditText>(R.id.edtReview)
 
         findViewById<FloatingActionButton>(R.id.fabSaveAction)?.setOnClickListener {
-            val item = Item(
+            val itemReview = ItemReview(
                 title = title.text.toString(),
                 owner = owner.text.toString(),
                 rating = rating.text.toString().toInt(),
@@ -36,7 +36,7 @@ class NewItemActivity : AppCompatActivity() {
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemDao().insert(item)
+                Database.get().itemReviewDao().insert(itemReview)
 
                 setResult(Activity.RESULT_OK)
                 finish()

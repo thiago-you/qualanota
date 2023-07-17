@@ -1,0 +1,97 @@
+package you.thiago.qualanota.ui.itemreview
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import you.thiago.qualanota.R
+import you.thiago.qualanota.data.Database
+import you.thiago.qualanota.data.model.ItemReview
+
+class EditItemActivity : AppCompatActivity() {
+
+    private var itemReview = ItemReview()
+
+    private val title: EditText by lazy { findViewById(R.id.edtTitle) }
+    private val owner: EditText by lazy { findViewById(R.id.edtOwner) }
+    private val rating: EditText by lazy { findViewById(R.id.edtRating) }
+    private val review: EditText by lazy { findViewById(R.id.edtReview) }
+
+    private val fabSaveAction: FloatingActionButton by lazy { findViewById(R.id.fabSaveAction) }
+    private val actionDelete: TextView by lazy { findViewById(R.id.actionDelete) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_review_item)
+
+        intent.extras?.also { data ->
+            setupItem(data)
+        }
+
+        setupInterface()
+
+        if (itemReview.id == 0) {
+            finish()
+        }
+    }
+
+    private fun setupItem(data: Bundle) {
+        itemReview = ItemReview(
+            id = data.getInt("id"),
+            title = data.getString("title"),
+            owner = data.getString("owner"),
+            rating = data.getInt("rating"),
+            review = data.getString("review"),
+        )
+    }
+
+    private fun setupInterface() {
+        actionDelete.visibility = View.VISIBLE
+
+        title.setText(itemReview.title)
+        owner.setText(itemReview.owner)
+        rating.setText(itemReview.rating.toString())
+        review.setText(itemReview.review)
+
+        fabSaveAction.setOnClickListener {
+            itemReview.title = title.text.toString()
+            itemReview.owner = owner.text.toString()
+            itemReview.rating = rating.text.toString().toInt()
+            itemReview.review = review.text.toString()
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                Database.get().itemReviewDao().update(itemReview)
+
+                val data = Intent().apply {
+                    putExtra("id", itemReview.id)
+                    putExtra("updated", true)
+                }
+
+                setResult(Activity.RESULT_OK, data)
+                finish()
+            }
+        }
+
+        actionDelete.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                Database.get().itemReviewDao().delete(itemReview)
+
+                val data = Intent().apply {
+                    putExtra("id", itemReview.id)
+                    putExtra("deleted", true)
+                }
+
+                setResult(Activity.RESULT_OK, data)
+                finish()
+            }
+        }
+    }
+}

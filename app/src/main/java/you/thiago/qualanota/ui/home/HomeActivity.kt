@@ -13,14 +13,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
-import you.thiago.qualanota.ui.NewItemActivity
+import you.thiago.qualanota.data.model.ItemReview
+import you.thiago.qualanota.ui.itemreview.EditItemActivity
+import you.thiago.qualanota.ui.itemreview.NewItemActivity
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewClickListener {
 
     private val recyclerView: RecyclerView by lazy { findViewById(R.id.recyclerview) }
     private val fabNewItemAction: FloatingActionButton by lazy { findViewById(R.id.fabNewItemAction) }
 
     private val newItemResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            setupList()
+        }
+    }
+
+    private val editItemResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             setupList()
         }
@@ -47,14 +55,26 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupList() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val list = Database.get().itemDao().getAll()
+            val list = Database.get().itemReviewDao().getAll()
 
             lifecycleScope.launch(Dispatchers.Main) {
                 recyclerView.apply {
                     layoutManager = LinearLayoutManager(this@HomeActivity)
-                    adapter = ItemAdapter(list)
+                    adapter = ItemReviewAdapter(list, this@HomeActivity)
                 }
             }
         }
+    }
+
+    override fun onAdapterClick(itemReview: ItemReview) {
+        val intent = Intent(this, EditItemActivity::class.java).apply {
+            putExtra("id", itemReview.id)
+            putExtra("title", itemReview.title)
+            putExtra("owner", itemReview.owner)
+            putExtra("rating", itemReview.rating)
+            putExtra("review", itemReview.review)
+        }
+
+        editItemResult.launch(intent)
     }
 }

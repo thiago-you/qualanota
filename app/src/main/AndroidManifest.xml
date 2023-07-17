@@ -26,7 +26,11 @@
 
         <activity
             android:exported="false"
-            android:name=".ui.NewItemActivity" />
+            android:name=".ui.itemreview.NewItemActivity" />
+
+        <activity
+            android:exported="false"
+            android:name=".ui.itemreview.EditItemActivity" />
 
     </application>
 

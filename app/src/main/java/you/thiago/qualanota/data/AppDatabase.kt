@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import you.thiago.qualanota.data.dao.ItemDao
-import you.thiago.qualanota.data.model.Item
+import you.thiago.qualanota.data.dao.ItemReviewDao
+import you.thiago.qualanota.data.model.ItemReview
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(entities = [ItemReview::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -30,5 +30,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun itemDao(): ItemDao
+    abstract fun itemReviewDao(): ItemReviewDao
 }
