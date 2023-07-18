@@ -14,7 +14,7 @@ class ItemReviewAdapter(
 ) : RecyclerView.Adapter<ItemReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.review_item, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_review, parent, false))
     }
 
     override fun getItemCount(): Int {

@@ -41,7 +41,7 @@ class EditItemReviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_review_item)
+        setContentView(R.layout.activity_item_review)
 
         intent.extras?.also { data ->
             setupItem(data)

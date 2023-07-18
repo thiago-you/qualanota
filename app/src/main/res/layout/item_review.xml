@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/labelOwner"
-            app:layout_constraintStart_toEndOf="@+id/labelTitle"
+            app:layout_constraintStart_toEndOf="@+id/labelOwner"
             app:layout_constraintTop_toTopOf="@+id/labelOwner"
             tools:text="Nome do Lugar" />
 
@@ -108,7 +108,8 @@
             android:src="@drawable/baseline_arrow_forward_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

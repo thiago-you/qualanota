@@ -37,6 +37,11 @@
 
         <activity
             android:exported="false"
+            android:label="Lugares"
+            android:name=".ui.itemowner.OwnerListActivity" />
+
+        <activity
+            android:exported="false"
             android:label="Novo Lugar"
             android:name=".ui.itemowner.NewItemOwnerActivity" />
 
