@@ -15,8 +15,6 @@ import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemOwner
-import you.thiago.qualanota.ui.itemreview.EditItemReviewActivity
-import you.thiago.qualanota.ui.itemreview.NewItemReviewActivity
 
 class OwnerListActivity : AppCompatActivity(), ItemOwnerAdapter.AdapterItemOwnerClickListener {
 
@@ -32,6 +30,7 @@ class OwnerListActivity : AppCompatActivity(), ItemOwnerAdapter.AdapterItemOwner
     private val editItemOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             setupList()
+            setResult(Activity.RESULT_OK)
         }
     }
 

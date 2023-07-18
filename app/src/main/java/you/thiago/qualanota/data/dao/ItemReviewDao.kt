@@ -16,6 +16,9 @@ interface ItemReviewDao {
     @Query("SELECT * FROM itemReview WHERE id IN (:itemReviewIds)")
     fun loadAllByIds(itemReviewIds: IntArray): List<ItemReview>
 
+    @Query("SELECT * FROM itemReview WHERE owner like :owner")
+    fun loadAllByOwners(owner: String?): List<ItemReview>
+
     @Query("SELECT * FROM itemReview WHERE title LIKE :title AND owner LIKE :owner LIMIT 1")
     fun findByTitle(title: String, owner: String): ItemReview
 

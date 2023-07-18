@@ -37,6 +37,12 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
         }
     }
 
+    private val listItemOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            setupList()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,7 +63,7 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
         }
 
         fabListOwnersAction.setOnClickListener {
-            newItemResult.launch(Intent(this, OwnerListActivity::class.java))
+            listItemOwnerResult.launch(Intent(this, OwnerListActivity::class.java))
         }
     }
 

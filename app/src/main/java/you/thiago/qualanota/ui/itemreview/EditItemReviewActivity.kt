@@ -103,13 +103,15 @@ class EditItemReviewActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 Database.get().itemReviewDao().update(itemReview)
 
-                val data = Intent().apply {
-                    putExtra("id", itemReview.id)
-                    putExtra("updated", true)
-                }
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val data = Intent().apply {
+                        putExtra("id", itemReview.id)
+                        putExtra("updated", true)
+                    }
 
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
             }
         }
 
@@ -117,13 +119,15 @@ class EditItemReviewActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 Database.get().itemReviewDao().delete(itemReview)
 
-                val data = Intent().apply {
-                    putExtra("id", itemReview.id)
-                    putExtra("deleted", true)
-                }
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val data = Intent().apply {
+                        putExtra("id", itemReview.id)
+                        putExtra("deleted", true)
+                    }
 
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
             }
         }
 

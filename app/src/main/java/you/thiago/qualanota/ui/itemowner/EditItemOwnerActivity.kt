@@ -82,13 +82,17 @@ class EditItemOwnerActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 Database.get().itemOwnerDao().update(itemOwner)
 
-                val data = Intent().apply {
-                    putExtra("id", itemOwner.id)
-                    putExtra("updated", true)
-                }
+                updateItemReviews(itemOwner)
 
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val data = Intent().apply {
+                        putExtra("id", itemOwner.id)
+                        putExtra("updated", true)
+                    }
+
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
             }
         }
 
@@ -96,14 +100,34 @@ class EditItemOwnerActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 Database.get().itemOwnerDao().delete(itemOwner)
 
-                val data = Intent().apply {
-                    putExtra("id", itemOwner.id)
-                    putExtra("deleted", true)
-                }
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val data = Intent().apply {
+                        putExtra("id", itemOwner.id)
+                        putExtra("deleted", true)
+                    }
 
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
             }
+        }
+    }
+
+    private suspend fun updateItemReviews(itemOwner: ItemOwner) {
+        val ownerName: String? = intent.extras?.getString("name")
+
+        if (ownerName.isNullOrBlank()) {
+            return
+        }
+
+        val list = Database.get().itemReviewDao().loadAllByOwners(ownerName).map { itemReview ->
+            itemReview.apply {
+                owner = itemOwner.name
+            }
+        }
+
+        list.forEach { itemReview ->
+            Database.get().itemReviewDao().update(itemReview)
         }
     }
 }
