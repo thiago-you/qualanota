@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
+import you.thiago.qualanota.components.DeleteAlert
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemOwner
 import you.thiago.qualanota.validator.ItemOwnerValidator
@@ -107,17 +108,19 @@ class EditItemOwnerActivity : AppCompatActivity() {
         }
 
         btnActionDelete.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemOwnerDao().delete(itemOwner)
+            DeleteAlert.show(this) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemOwnerDao().delete(itemOwner)
 
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val data = Intent().apply {
-                        putExtra("id", itemOwner.id)
-                        putExtra("deleted", true)
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val data = Intent().apply {
+                            putExtra("id", itemOwner.id)
+                            putExtra("deleted", true)
+                        }
+
+                        setResult(Activity.RESULT_OK, data)
+                        finish()
                     }
-
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
                 }
             }
         }

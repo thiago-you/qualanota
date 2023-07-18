@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
+import you.thiago.qualanota.components.DeleteAlert
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
 import you.thiago.qualanota.ui.itemowner.NewItemOwnerActivity
@@ -129,17 +130,19 @@ class EditItemReviewActivity : AppCompatActivity() {
         }
 
         actionDelete.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemReviewDao().delete(itemReview)
+            DeleteAlert.show(this) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemReviewDao().delete(itemReview)
 
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val data = Intent().apply {
-                        putExtra("id", itemReview.id)
-                        putExtra("deleted", true)
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val data = Intent().apply {
+                            putExtra("id", itemReview.id)
+                            putExtra("deleted", true)
+                        }
+
+                        setResult(Activity.RESULT_OK, data)
+                        finish()
                     }
-
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
                 }
             }
         }
