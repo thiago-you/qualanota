@@ -54,13 +54,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelOwner">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtOwner"
+        <Spinner
+            android:id="@+id/spnOwner"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:spinnerMode="dialog"
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/labelRating"

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ class EditItemReviewActivity : AppCompatActivity() {
     private var itemReview = ItemReview()
 
     private val title: EditText by lazy { findViewById(R.id.edtTitle) }
-    private val owner: EditText by lazy { findViewById(R.id.edtOwner) }
+    private val owner: Spinner by lazy { findViewById(R.id.spnOwner) }
     private val rating: EditText by lazy { findViewById(R.id.edtRating) }
     private val review: EditText by lazy { findViewById(R.id.edtReview) }
 
@@ -66,13 +67,13 @@ class EditItemReviewActivity : AppCompatActivity() {
         actionDelete.visibility = View.VISIBLE
 
         title.setText(itemReview.title)
-        owner.setText(itemReview.owner)
+//        owner.setText(itemReview.owner)
         rating.setText(itemReview.rating.toString())
         review.setText(itemReview.review)
 
         fabSaveAction.setOnClickListener {
             itemReview.title = title.text.toString()
-            itemReview.owner = owner.text.toString()
+            itemReview.owner = owner.selectedItem.toString()
             itemReview.rating = rating.text.toString().toInt()
             itemReview.review = review.text.toString()
 

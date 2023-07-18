@@ -37,10 +37,10 @@ class NewItemOwnerActivity : AppCompatActivity() {
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val id = Database.get().itemOwnerDao().insert(itemOwner)
+                Database.get().itemOwnerDao().insert(itemOwner)
 
                 val data = Intent().apply {
-                    putExtra("id", id)
+                    putExtra("selected", itemOwner.name)
                     putExtra("inserted", true)
                 }
 

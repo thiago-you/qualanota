@@ -3,7 +3,10 @@ package you.thiago.qualanota.ui.itemreview
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +22,7 @@ import you.thiago.qualanota.ui.itemowner.NewItemOwnerActivity
 class NewItemReviewActivity : AppCompatActivity() {
 
     private val title: EditText by lazy { findViewById(R.id.edtTitle) }
-    private val owner: EditText by lazy { findViewById(R.id.edtOwner) }
+    private val owner: Spinner by lazy { findViewById(R.id.spnOwner) }
     private val rating: EditText by lazy { findViewById(R.id.edtRating) }
     private val review: EditText by lazy { findViewById(R.id.edtReview) }
 
@@ -28,7 +31,11 @@ class NewItemReviewActivity : AppCompatActivity() {
 
     private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            //
+            val selected = result.data?.getStringExtra("selected")
+
+            if (!selected.isNullOrBlank()) {
+                loadSpinner(selected)
+            }
         }
     }
 
@@ -40,10 +47,12 @@ class NewItemReviewActivity : AppCompatActivity() {
     }
 
     private fun setupInterface() {
+        loadSpinner("")
+
         fabSaveAction.setOnClickListener {
             val itemReview = ItemReview(
                 title = title.text.toString(),
-                owner = owner.text.toString(),
+                owner = owner.selectedItem.toString(),
                 rating = rating.text.toString().toInt(),
                 review = review.text.toString(),
             )
@@ -58,6 +67,34 @@ class NewItemReviewActivity : AppCompatActivity() {
 
         actionNewOwner.setOnClickListener {
             newOwnerResult.launch(Intent(this, NewItemOwnerActivity::class.java))
+        }
+    }
+
+    private fun loadSpinner(selected: String = "") {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val list = Database.get().itemOwnerDao().getAll().map { it.name }.toMutableList()
+
+            list.add(0, "")
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                val ownerAdapter = ArrayAdapter(
+                    this@NewItemReviewActivity,
+                    android.R.layout.simple_spinner_item,
+                    list.toTypedArray(),
+                )
+
+                ownerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                with(owner) {
+                    adapter = ownerAdapter
+                    prompt = "Selecione o local..."
+                    gravity = Gravity.CENTER
+
+                    if (selected.isNotBlank()) {
+                        setSelection(list.indexOf(selected), false)
+                    }
+                }
+            }
         }
     }
 }
