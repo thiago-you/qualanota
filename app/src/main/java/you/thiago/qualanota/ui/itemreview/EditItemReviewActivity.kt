@@ -8,11 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
@@ -30,12 +32,23 @@ class EditItemReviewActivity : AppCompatActivity() {
 
     private val title: EditText by lazy { findViewById(R.id.edtTitle) }
     private val owner: Spinner by lazy { findViewById(R.id.spnOwner) }
-    private val rating: EditText by lazy { findViewById(R.id.edtRating) }
     private val review: EditText by lazy { findViewById(R.id.edtReview) }
 
     private val fabSaveAction: FloatingActionButton by lazy { findViewById(R.id.fabSaveAction) }
     private val actionDelete: TextView by lazy { findViewById(R.id.actionDelete) }
     private val actionNewOwner: TextView by lazy { findViewById(R.id.actionAddOwner) }
+
+    private val ratingStarDisabled1 by lazy { findViewById<ImageView>(R.id.star_disabled_1) }
+    private val ratingStarDisabled2 by lazy { findViewById<ImageView>(R.id.star_disabled_2) }
+    private val ratingStarDisabled3 by lazy { findViewById<ImageView>(R.id.star_disabled_3) }
+    private val ratingStarDisabled4 by lazy { findViewById<ImageView>(R.id.star_disabled_4) }
+    private val ratingStarDisabled5 by lazy { findViewById<ImageView>(R.id.star_disabled_5) }
+
+    private val ratingStarEnabled1 by lazy { findViewById<ImageView>(R.id.star_enabled_1) }
+    private val ratingStarEnabled2 by lazy { findViewById<ImageView>(R.id.star_enabled_2) }
+    private val ratingStarEnabled3 by lazy { findViewById<ImageView>(R.id.star_enabled_3) }
+    private val ratingStarEnabled4 by lazy { findViewById<ImageView>(R.id.star_enabled_4) }
+    private val ratingStarEnabled5 by lazy { findViewById<ImageView>(R.id.star_enabled_5) }
 
     private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -90,22 +103,21 @@ class EditItemReviewActivity : AppCompatActivity() {
 
     private fun setupInterface() {
         loadSpinner(itemReview.owner.toString())
+        setupRatingToggle()
 
         actionDelete.visibility = View.VISIBLE
 
         title.setText(itemReview.title)
-        rating.setText(itemReview.rating.toString())
         review.setText(itemReview.review)
+
+        setRatingValue(itemReview.rating)
 
         fabSaveAction.setOnClickListener {
             runCatching {
                 itemReview.title = title.text.toString()
                 itemReview.owner = owner.selectedItem.toString()
                 itemReview.review = review.text.toString()
-
-                if (rating.text.toString().isNotBlank()) {
-                    itemReview.rating = rating.text.toString().toInt()
-                }
+                itemReview.rating = getRatingValue()
 
                 ItemReviewValidator.validate(itemReview)
 
@@ -178,5 +190,81 @@ class EditItemReviewActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun getRatingValue(): Int {
+        return when {
+            ratingStarEnabled5.isVisible -> 5
+            ratingStarEnabled4.isVisible -> 4
+            ratingStarEnabled3.isVisible -> 3
+            ratingStarEnabled2.isVisible -> 2
+            ratingStarEnabled1.isVisible -> 1
+            else -> 5
+        }
+    }
+
+    private fun setRatingValue(rating: Int?) {
+        when (rating) {
+            5 -> ratingStarEnabled5.callOnClick()
+            4 -> ratingStarEnabled4.callOnClick()
+            3 -> ratingStarEnabled3.callOnClick()
+            2 -> ratingStarEnabled2.callOnClick()
+            1 -> ratingStarEnabled1.callOnClick()
+            else -> ratingStarEnabled5.callOnClick()
+        }
+    }
+
+    private fun setupRatingToggle() {
+        ratingStarDisabled1.setOnClickListener(toggle1StartClickListener)
+        ratingStarDisabled2.setOnClickListener(toggle2StartClickListener)
+        ratingStarDisabled3.setOnClickListener(toggle3StartClickListener)
+        ratingStarDisabled4.setOnClickListener(toggle4StartClickListener)
+        ratingStarDisabled5.setOnClickListener(toggle5StartClickListener)
+
+        ratingStarEnabled1.setOnClickListener(toggle1StartClickListener)
+        ratingStarEnabled2.setOnClickListener(toggle2StartClickListener)
+        ratingStarEnabled3.setOnClickListener(toggle3StartClickListener)
+        ratingStarEnabled4.setOnClickListener(toggle4StartClickListener)
+        ratingStarEnabled5.setOnClickListener(toggle5StartClickListener)
+    }
+
+    private val toggle1StartClickListener = View.OnClickListener {
+        ratingStarEnabled1.visibility = View.VISIBLE
+        ratingStarEnabled2.visibility = View.INVISIBLE
+        ratingStarEnabled3.visibility = View.INVISIBLE
+        ratingStarEnabled4.visibility = View.INVISIBLE
+        ratingStarEnabled5.visibility = View.INVISIBLE
+    }
+
+    private val toggle2StartClickListener = View.OnClickListener {
+        ratingStarEnabled1.visibility = View.VISIBLE
+        ratingStarEnabled2.visibility = View.VISIBLE
+        ratingStarEnabled3.visibility = View.INVISIBLE
+        ratingStarEnabled4.visibility = View.INVISIBLE
+        ratingStarEnabled5.visibility = View.INVISIBLE
+    }
+
+    private val toggle3StartClickListener = View.OnClickListener {
+        ratingStarEnabled1.visibility = View.VISIBLE
+        ratingStarEnabled2.visibility = View.VISIBLE
+        ratingStarEnabled3.visibility = View.VISIBLE
+        ratingStarEnabled4.visibility = View.INVISIBLE
+        ratingStarEnabled5.visibility = View.INVISIBLE
+    }
+
+    private val toggle4StartClickListener = View.OnClickListener {
+        ratingStarEnabled1.visibility = View.VISIBLE
+        ratingStarEnabled2.visibility = View.VISIBLE
+        ratingStarEnabled3.visibility = View.VISIBLE
+        ratingStarEnabled4.visibility = View.VISIBLE
+        ratingStarEnabled5.visibility = View.INVISIBLE
+    }
+
+    private val toggle5StartClickListener = View.OnClickListener {
+        ratingStarEnabled1.visibility = View.VISIBLE
+        ratingStarEnabled2.visibility = View.VISIBLE
+        ratingStarEnabled3.visibility = View.VISIBLE
+        ratingStarEnabled4.visibility = View.VISIBLE
+        ratingStarEnabled5.visibility = View.VISIBLE
     }
 }

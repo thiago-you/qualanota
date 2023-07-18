@@ -85,25 +85,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionAddOwner" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelRating">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtRating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/labelReview"
         android:layout_width="wrap_content"
@@ -112,7 +93,7 @@
         android:layout_marginTop="16dp"
         android:text="Avaliação"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutRating" />
+        app:layout_constraintTop_toBottomOf="@+id/star_disabled_1" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutReview"
@@ -172,5 +153,145 @@
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutOwner" />
+
+    <ImageView
+        android:id="@+id/star_disabled_1"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintEnd_toStartOf="@+id/star_disabled_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelRating"
+        app:tint="@color/rating_disabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_disabled_2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_disabled_1"
+        app:layout_constraintEnd_toStartOf="@+id/star_disabled_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_disabled_1"
+        app:layout_constraintTop_toTopOf="@+id/star_disabled_1"
+        app:tint="@color/rating_disabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_disabled_3"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_disabled_2"
+        app:layout_constraintEnd_toStartOf="@+id/star_disabled_4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_disabled_2"
+        app:layout_constraintTop_toTopOf="@+id/star_disabled_2"
+        app:tint="@color/rating_disabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_disabled_4"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_disabled_3"
+        app:layout_constraintEnd_toStartOf="@+id/star_disabled_5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_disabled_3"
+        app:layout_constraintTop_toTopOf="@+id/star_disabled_3"
+        app:tint="@color/rating_disabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_disabled_5"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_disabled_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_disabled_4"
+        app:layout_constraintTop_toTopOf="@+id/star_disabled_4"
+        app:tint="@color/rating_disabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_enabled_1"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintEnd_toStartOf="@+id/star_enabled_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelRating"
+        app:tint="@color/rating_enabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_enabled_2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_enabled_1"
+        app:layout_constraintEnd_toStartOf="@+id/star_enabled_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_enabled_1"
+        app:layout_constraintTop_toTopOf="@+id/star_enabled_1"
+        app:tint="@color/rating_enabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_enabled_3"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_enabled_2"
+        app:layout_constraintEnd_toStartOf="@+id/star_enabled_4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_enabled_2"
+        app:layout_constraintTop_toTopOf="@+id/star_enabled_2"
+        app:tint="@color/rating_enabled"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/star_enabled_4"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_enabled_3"
+        app:layout_constraintEnd_toStartOf="@+id/star_enabled_5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_enabled_3"
+        app:layout_constraintTop_toTopOf="@+id/star_enabled_3"
+        app:tint="@color/rating_enabled"
+        tools:ignore="ContentDescription"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/star_enabled_5"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/star_enabled_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/star_enabled_4"
+        app:layout_constraintTop_toTopOf="@+id/star_enabled_4"
+        app:tint="@color/rating_enabled"
+        tools:ignore="ContentDescription"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

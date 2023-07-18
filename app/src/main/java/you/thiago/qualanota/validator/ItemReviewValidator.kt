@@ -16,6 +16,7 @@ object ItemReviewValidator {
 
     fun validate(itemReview: ItemReview) {
         val owner = itemReview.owner.toString().trim().lowercase()
+        val rating = itemReview.rating ?: -1
 
         if (itemReview.title.isNullOrBlank()) {
             throw Exception("O título não pode ficar vazio.")
@@ -28,6 +29,9 @@ object ItemReviewValidator {
         }
         if (itemReview.rating == null) {
             throw Exception("A nota não pode ficar vazia.")
+        }
+        if (rating < 1 || rating > 5) {
+            throw Exception("A nota não é válida.")
         }
     }
 }

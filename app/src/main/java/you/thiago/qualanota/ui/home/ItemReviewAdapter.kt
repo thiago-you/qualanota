@@ -43,14 +43,14 @@ class ItemReviewAdapter(
             owner.text = itemReview.owner
             review.text = itemReview.review
 
-            toggleRating(itemReview.rating ?: 5)
+            toggleRating(itemReview.rating)
 
             view.setOnClickListener {
                 listener.onAdapterClick(itemReview)
             }
         }
 
-        private fun toggleRating(rating: Int) {
+        private fun toggleRating(rating: Int?) {
             ratingStar1.visibility = View.VISIBLE
             ratingStar2.visibility = View.VISIBLE
             ratingStar3.visibility = View.VISIBLE
