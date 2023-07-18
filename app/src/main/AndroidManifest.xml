@@ -16,6 +16,7 @@
 
         <activity
             android:exported="true"
+            android:label="Koala a Nota?"
             android:name=".ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,14 +27,17 @@
 
         <activity
             android:exported="false"
+            android:label="Nova Avaliação"
             android:name=".ui.itemreview.NewItemReviewActivity" />
 
         <activity
             android:exported="false"
+            android:label="Editar Avaliação"
             android:name=".ui.itemreview.EditItemReviewActivity" />
 
         <activity
             android:exported="false"
+            android:label="Novo Lugar"
             android:name=".ui.itemowner.NewItemOwnerActivity" />
 
     </application>

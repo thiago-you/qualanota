@@ -3,6 +3,7 @@ package you.thiago.qualanota.ui.itemreview
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Spinner
@@ -46,11 +47,26 @@ class EditItemReviewActivity : AppCompatActivity() {
             setupItem(data)
         }
 
+        setupToolbar()
         setupInterface()
 
         if (itemReview.id == 0) {
             finish()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun setupItem(data: Bundle) {

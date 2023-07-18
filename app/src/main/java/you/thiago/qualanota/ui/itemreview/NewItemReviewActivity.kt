@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
@@ -43,11 +44,26 @@ class NewItemReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_review_item)
+        setupToolbar()
         setupInterface()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
     private fun setupInterface() {
-        loadSpinner("")
+        loadSpinner("Selecione")
 
         fabSaveAction.setOnClickListener {
             val itemReview = ItemReview(
@@ -74,7 +90,7 @@ class NewItemReviewActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val list = Database.get().itemOwnerDao().getAll().map { it.name }.toMutableList()
 
-            list.add(0, "")
+            list.add(0, "Selecione")
 
             lifecycleScope.launch(Dispatchers.Main) {
                 val ownerAdapter = ArrayAdapter(
@@ -87,7 +103,7 @@ class NewItemReviewActivity : AppCompatActivity() {
 
                 with(owner) {
                     adapter = ownerAdapter
-                    prompt = "Selecione o local..."
+                    prompt = "Selecione"
                     gravity = Gravity.CENTER
 
                     if (selected.isNotBlank()) {

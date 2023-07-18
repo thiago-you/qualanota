@@ -38,13 +38,14 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        setupToolbar()
         setupInterface()
         setupList()
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupList()
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
     }
 
     private fun setupInterface() {
