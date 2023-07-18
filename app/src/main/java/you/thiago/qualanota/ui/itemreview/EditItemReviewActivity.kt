@@ -3,8 +3,10 @@ package you.thiago.qualanota.ui.itemreview
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
@@ -34,7 +36,11 @@ class EditItemReviewActivity : AppCompatActivity() {
 
     private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            //
+            val selected = result.data?.getStringExtra("selected")
+
+            if (!selected.isNullOrBlank()) {
+                loadSpinner(selected)
+            }
         }
     }
 
@@ -80,10 +86,11 @@ class EditItemReviewActivity : AppCompatActivity() {
     }
 
     private fun setupInterface() {
+        loadSpinner(itemReview.owner.toString())
+
         actionDelete.visibility = View.VISIBLE
 
         title.setText(itemReview.title)
-//        owner.setText(itemReview.owner)
         rating.setText(itemReview.rating.toString())
         review.setText(itemReview.review)
 
@@ -122,6 +129,34 @@ class EditItemReviewActivity : AppCompatActivity() {
 
         actionNewOwner.setOnClickListener {
             newOwnerResult.launch(Intent(this, NewItemOwnerActivity::class.java))
+        }
+    }
+
+    private fun loadSpinner(selected: String = "") {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val list = Database.get().itemOwnerDao().getAll().map { it.name }.toMutableList()
+
+            list.add(0, "Selecione")
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                val ownerAdapter = ArrayAdapter(
+                    this@EditItemReviewActivity,
+                    android.R.layout.simple_spinner_item,
+                    list.toTypedArray(),
+                )
+
+                ownerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                with(owner) {
+                    adapter = ownerAdapter
+                    prompt = "Selecione"
+                    gravity = Gravity.CENTER
+
+                    if (selected.isNotBlank()) {
+                        setSelection(list.indexOf(selected), false)
+                    }
+                }
+            }
         }
     }
 }

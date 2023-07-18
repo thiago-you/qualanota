@@ -61,7 +61,7 @@ class OwnerListActivity : AppCompatActivity(), ItemOwnerAdapter.AdapterItemOwner
 
     private fun setupInterface() {
         fabNewItemAction.setOnClickListener {
-            newItemOwnerResult.launch(Intent(this, NewItemReviewActivity::class.java))
+            newItemOwnerResult.launch(Intent(this, NewItemOwnerActivity::class.java))
         }
     }
 
@@ -79,7 +79,7 @@ class OwnerListActivity : AppCompatActivity(), ItemOwnerAdapter.AdapterItemOwner
     }
 
     override fun onAdapterClick(itemOwner: ItemOwner) {
-        val intent = Intent(this, EditItemReviewActivity::class.java).apply {
+        val intent = Intent(this, EditItemOwnerActivity::class.java).apply {
             putExtra("id", itemOwner.id)
             putExtra("name", itemOwner.name)
             putExtra("location", itemOwner.location)

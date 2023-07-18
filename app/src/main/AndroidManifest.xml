@@ -45,6 +45,11 @@
             android:label="Novo Lugar"
             android:name=".ui.itemowner.NewItemOwnerActivity" />
 
+        <activity
+            android:exported="false"
+            android:label="Editar Lugar"
+            android:name=".ui.itemowner.EditItemOwnerActivity" />
+
     </application>
 
 </manifest>

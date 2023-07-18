@@ -128,7 +128,9 @@
             android:id="@+id/edtReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textImeMultiLine"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:lines="3"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
