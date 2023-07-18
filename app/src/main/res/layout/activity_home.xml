@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:roundPercent="1"
-        app:srcCompat="@drawable/baseline_person_2_24" />
+        app:srcCompat="@drawable/koala_profile" />
 
     <TextView
         android:id="@+id/labelUserName"

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemOwner
+import you.thiago.qualanota.validator.ItemOwnerValidator
 
 class EditItemOwnerActivity : AppCompatActivity() {
 
@@ -75,24 +77,32 @@ class EditItemOwnerActivity : AppCompatActivity() {
         edtDescription.setText(itemOwner.description)
 
         btnSaveAction.setOnClickListener {
-            itemOwner.name = edtName.text.toString()
-            itemOwner.location = edtLocation.text.toString()
-            itemOwner.description = edtDescription.text.toString()
+            runCatching {
+                itemOwner.name = edtName.text.toString()
+                itemOwner.location = edtLocation.text.toString()
+                itemOwner.description = edtDescription.text.toString()
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemOwnerDao().update(itemOwner)
+                ItemOwnerValidator.validate(itemOwner)
 
-                updateItemReviews(itemOwner)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemOwnerDao().update(itemOwner)
 
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val data = Intent().apply {
-                        putExtra("id", itemOwner.id)
-                        putExtra("updated", true)
+                    updateItemReviews(itemOwner)
+
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val data = Intent().apply {
+                            putExtra("id", itemOwner.id)
+                            putExtra("updated", true)
+                        }
+
+                        setResult(Activity.RESULT_OK, data)
+                        finish()
                     }
-
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
                 }
+
+                return@runCatching
+            }.onFailure {
+                Toast.makeText(this@EditItemOwnerActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
 

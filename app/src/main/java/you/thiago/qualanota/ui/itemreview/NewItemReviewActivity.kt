@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +20,7 @@ import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
 import you.thiago.qualanota.ui.itemowner.NewItemOwnerActivity
+import you.thiago.qualanota.validator.ItemReviewValidator
 
 class NewItemReviewActivity : AppCompatActivity() {
 
@@ -66,18 +68,29 @@ class NewItemReviewActivity : AppCompatActivity() {
         loadSpinner("Selecione")
 
         fabSaveAction.setOnClickListener {
-            val itemReview = ItemReview(
-                title = title.text.toString(),
-                owner = owner.selectedItem.toString(),
-                rating = rating.text.toString().toInt(),
-                review = review.text.toString(),
-            )
+            runCatching {
+                val itemReview = ItemReview(
+                    title = title.text.toString(),
+                    owner = owner.selectedItem.toString(),
+                    review = review.text.toString(),
+                )
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemReviewDao().insert(itemReview)
+                if (rating.text.toString().isNotBlank()) {
+                    itemReview.rating = rating.text.toString().toInt()
+                }
 
-                setResult(Activity.RESULT_OK)
-                finish()
+                ItemReviewValidator.validate(itemReview)
+
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemReviewDao().insert(itemReview)
+
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+
+                return@runCatching
+            }.onFailure {
+                Toast.makeText(this@NewItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
 

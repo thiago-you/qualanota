@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemOwner
+import you.thiago.qualanota.validator.ItemOwnerValidator
 
 class NewItemOwnerActivity : AppCompatActivity() {
 
@@ -47,22 +49,30 @@ class NewItemOwnerActivity : AppCompatActivity() {
 
     private fun setupInterface() {
         fabSaveAction.setOnClickListener {
-            val itemOwner = ItemOwner(
-                name = name.text.toString(),
-                location = location.text.toString(),
-                description = description.text.toString(),
-            )
+            runCatching {
+                val itemOwner = ItemOwner(
+                    name = name.text.toString(),
+                    location = location.text.toString(),
+                    description = description.text.toString(),
+                )
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemOwnerDao().insert(itemOwner)
+                ItemOwnerValidator.validate(itemOwner)
 
-                val data = Intent().apply {
-                    putExtra("selected", itemOwner.name)
-                    putExtra("inserted", true)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemOwnerDao().insert(itemOwner)
+
+                    val data = Intent().apply {
+                        putExtra("selected", itemOwner.name)
+                        putExtra("inserted", true)
+                    }
+
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
                 }
 
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                return@runCatching
+            }.onFailure {
+                Toast.makeText(this@NewItemOwnerActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
     }

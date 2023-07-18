@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
 import you.thiago.qualanota.ui.itemowner.NewItemOwnerActivity
+import you.thiago.qualanota.validator.ItemReviewValidator
 
 class EditItemReviewActivity : AppCompatActivity() {
 
@@ -95,23 +97,34 @@ class EditItemReviewActivity : AppCompatActivity() {
         review.setText(itemReview.review)
 
         fabSaveAction.setOnClickListener {
-            itemReview.title = title.text.toString()
-            itemReview.owner = owner.selectedItem.toString()
-            itemReview.rating = rating.text.toString().toInt()
-            itemReview.review = review.text.toString()
+            runCatching {
+                itemReview.title = title.text.toString()
+                itemReview.owner = owner.selectedItem.toString()
+                itemReview.review = review.text.toString()
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                Database.get().itemReviewDao().update(itemReview)
-
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val data = Intent().apply {
-                        putExtra("id", itemReview.id)
-                        putExtra("updated", true)
-                    }
-
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
+                if (rating.text.toString().isNotBlank()) {
+                    itemReview.rating = rating.text.toString().toInt()
                 }
+
+                ItemReviewValidator.validate(itemReview)
+
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Database.get().itemReviewDao().update(itemReview)
+
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val data = Intent().apply {
+                            putExtra("id", itemReview.id)
+                            putExtra("updated", true)
+                        }
+
+                        setResult(Activity.RESULT_OK, data)
+                        finish()
+                    }
+                }
+
+                return@runCatching
+            }.onFailure {
+                Toast.makeText(this@EditItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
 
