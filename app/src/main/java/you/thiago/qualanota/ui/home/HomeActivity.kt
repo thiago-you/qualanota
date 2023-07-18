@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
-import you.thiago.qualanota.ui.itemreview.EditItemActivity
-import you.thiago.qualanota.ui.itemreview.NewItemActivity
+import you.thiago.qualanota.ui.itemreview.EditItemReviewActivity
+import you.thiago.qualanota.ui.itemreview.NewItemReviewActivity
 
 class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewClickListener {
 
@@ -49,7 +49,7 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
 
     private fun setupInterface() {
         fabNewItemAction.setOnClickListener {
-            newItemResult.launch(Intent(this, NewItemActivity::class.java))
+            newItemResult.launch(Intent(this, NewItemReviewActivity::class.java))
         }
     }
 
@@ -67,7 +67,7 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
     }
 
     override fun onAdapterClick(itemReview: ItemReview) {
-        val intent = Intent(this, EditItemActivity::class.java).apply {
+        val intent = Intent(this, EditItemReviewActivity::class.java).apply {
             putExtra("id", itemReview.id)
             putExtra("title", itemReview.title)
             putExtra("owner", itemReview.owner)

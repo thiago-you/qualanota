@@ -17,7 +17,7 @@ interface ItemReviewDao {
     fun loadAllByIds(itemReviewIds: IntArray): List<ItemReview>
 
     @Query("SELECT * FROM itemReview WHERE title LIKE :title AND owner LIKE :owner LIMIT 1")
-    fun findByName(title: String, owner: String): ItemReview
+    fun findByTitle(title: String, owner: String): ItemReview
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(itemReview: ItemReview)

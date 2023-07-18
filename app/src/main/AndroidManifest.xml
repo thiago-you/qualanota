@@ -26,11 +26,15 @@
 
         <activity
             android:exported="false"
-            android:name=".ui.itemreview.NewItemActivity" />
+            android:name=".ui.itemreview.NewItemReviewActivity" />
 
         <activity
             android:exported="false"
-            android:name=".ui.itemreview.EditItemActivity" />
+            android:name=".ui.itemreview.EditItemReviewActivity" />
+
+        <activity
+            android:exported="false"
+            android:name=".ui.itemowner.NewItemOwnerActivity" />
 
     </application>
 

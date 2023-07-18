@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,8 +15,9 @@ import kotlinx.coroutines.launch
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
+import you.thiago.qualanota.ui.itemowner.NewItemOwnerActivity
 
-class EditItemActivity : AppCompatActivity() {
+class EditItemReviewActivity : AppCompatActivity() {
 
     private var itemReview = ItemReview()
 
@@ -26,6 +28,13 @@ class EditItemActivity : AppCompatActivity() {
 
     private val fabSaveAction: FloatingActionButton by lazy { findViewById(R.id.fabSaveAction) }
     private val actionDelete: TextView by lazy { findViewById(R.id.actionDelete) }
+    private val actionNewOwner: TextView by lazy { findViewById(R.id.actionAddOwner) }
+
+    private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            //
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +101,10 @@ class EditItemActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_OK, data)
                 finish()
             }
+        }
+
+        actionNewOwner.setOnClickListener {
+            newOwnerResult.launch(Intent(this, NewItemOwnerActivity::class.java))
         }
     }
 }

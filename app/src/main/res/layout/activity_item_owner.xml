@@ -7,27 +7,27 @@
     tools:context=".ui.itemreview.NewItemReviewActivity">
 
     <TextView
-        android:id="@+id/labelTitle"
+        android:id="@+id/labelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Titulo"
+        android:text="Nome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutTitle"
+        android:id="@+id/layoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelTitle">
+        app:layout_constraintTop_toBottomOf="@+id/labelName">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtTitle"
+            android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -35,27 +35,27 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/labelOwner"
+        android:id="@+id/labelLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Lugar"
+        android:text="Localização"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutName" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutOwner"
+        android:id="@+id/layoutLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelOwner">
+        app:layout_constraintTop_toBottomOf="@+id/labelLocation">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtOwner"
+            android:id="@+id/edtLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -63,56 +63,27 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/labelRating"
+        android:id="@+id/labelDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Nota"
+        android:text="Descrição"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionAddOwner" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutLocation" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutRating"
+        android:id="@+id/layoutDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelRating">
+        app:layout_constraintTop_toBottomOf="@+id/labelDescription">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtRating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/labelReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Avaliação"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutRating" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelReview">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtReview"
+            android:id="@+id/edtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textImeMultiLine"
@@ -145,17 +116,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutReview"
+        app:layout_constraintTop_toBottomOf="@+id/layoutDescription"
         tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/actionAddOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Adicionar novo lugar"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutOwner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
