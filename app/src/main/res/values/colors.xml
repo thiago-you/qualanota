@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4CAF50</color>
     <color name="blue_action">#2196F3</color>
+    <color name="rating_enabled">#FFF41E</color>
+    <color name="rating_disabled">#D1D1D1</color>
 </resources>

@@ -26,6 +26,7 @@ class ItemOwnerAdapter(
     }
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+
         private val name = view.findViewById<TextView>(R.id.name)
         private val location = view.findViewById<TextView>(R.id.location)
         private val description = view.findViewById<TextView>(R.id.description)
