@@ -12,4 +12,5 @@
     <color name="blue">#1976D2</color>
     <color name="rating_enabled">#FFF41E</color>
     <color name="rating_disabled">#D1D1D1</color>
+    <color name="border">#808080</color>
 </resources>

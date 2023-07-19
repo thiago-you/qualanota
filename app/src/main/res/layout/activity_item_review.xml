@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelTitle">
 
@@ -55,25 +54,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitle" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/layoutOwner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelOwner">
+        app:layout_constraintTop_toBottomOf="@+id/labelOwner"
+        app:cardCornerRadius="4dp"
+        app:strokeColor="@color/border"
+        app:strokeWidth="1dp">
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spnOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:spinnerMode="dropdown" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/labelRating"
@@ -101,7 +102,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelReview">
 
@@ -160,7 +160,8 @@
         android:id="@+id/star_disabled_1"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="11dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintEnd_toStartOf="@+id/star_disabled_2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -173,7 +174,7 @@
         android:id="@+id/star_disabled_2"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="9dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintBottom_toBottomOf="@+id/star_disabled_1"
         app:layout_constraintEnd_toStartOf="@+id/star_disabled_3"
@@ -187,7 +188,7 @@
         android:id="@+id/star_disabled_3"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintBottom_toBottomOf="@+id/star_disabled_2"
         app:layout_constraintEnd_toStartOf="@+id/star_disabled_4"
@@ -201,7 +202,7 @@
         android:id="@+id/star_disabled_4"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="11dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintBottom_toBottomOf="@+id/star_disabled_3"
         app:layout_constraintEnd_toStartOf="@+id/star_disabled_5"
@@ -215,7 +216,7 @@
         android:id="@+id/star_disabled_5"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintBottom_toBottomOf="@+id/star_disabled_4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -229,7 +230,7 @@
         android:id="@+id/star_enabled_1"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/baseline_star_24"
         app:layout_constraintEnd_toStartOf="@+id/star_enabled_2"
         app:layout_constraintHorizontal_bias="0.5"

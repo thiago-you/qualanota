@@ -11,9 +11,4 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
-    <style name="imageViewRounded">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">51%</item>
-    </style>
-
 </resources>
