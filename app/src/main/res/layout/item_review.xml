@@ -27,6 +27,7 @@
                 android:id="@+id/labelTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/title_label"
                 android:textColor="@color/white"
                 android:textSize="15sp"
@@ -36,11 +37,13 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/labelTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/labelTitle"
                 app:layout_constraintTop_toTopOf="@+id/labelTitle"
                 tools:text="Titulo da Avaliação" />
@@ -59,11 +62,13 @@
 
             <TextView
                 android:id="@+id/owner"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/labelOwner"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toEndOf="@+id/labelOwner"
                 app:layout_constraintTop_toTopOf="@+id/labelOwner"
                 tools:text="Nome do Lugar" />
@@ -82,11 +87,12 @@
 
             <TextView
                 android:id="@+id/review"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/labelReview"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/labelReview"
                 app:layout_constraintTop_toTopOf="@+id/labelReview"
                 tools:text="Descrição da Avaliação" />
@@ -235,5 +241,15 @@
         app:tint="@color/rating_enabled"
         tools:ignore="ContentDescription"
         tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/baseline_fastfood_24"
+        app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:tint="@color/background_label"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
