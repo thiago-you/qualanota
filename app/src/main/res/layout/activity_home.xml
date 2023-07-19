@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Convidado"
+        android:text="@string/guest"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/img_launcher_icon"
         app:layout_constraintStart_toStartOf="@+id/img_launcher_icon"
@@ -64,7 +64,7 @@
             android:id="@+id/labelOwners"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lugares"
+            android:text="@string/owners"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imgOwnersIcon"
@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="Avaliações"
+        android:text="@string/reviews"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,10 +101,10 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/green"
         android:clickable="true"
+        android:contentDescription="@string/add_new_item_desc"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
