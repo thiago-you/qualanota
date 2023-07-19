@@ -5,11 +5,11 @@ import ir.androidexception.andexalertdialog.AndExAlertDialog
 import ir.androidexception.andexalertdialog.AndExAlertDialogListener
 import you.thiago.qualanota.R
 
-object DeleteAlert {
+object ConfirmPopulateDataAlert {
     fun show(context: Context, clickListener: AndExAlertDialogListener) {
         AndExAlertDialog.Builder(context)
-            .setMessage(context.getString(R.string.confirm_delete_action))
-            .setPositiveBtnText(context.getString(R.string.btn_delete))
+            .setMessage(context.getString(R.string.confirm_populate_action))
+            .setPositiveBtnText(context.getString(R.string.btn_confirm))
             .setNegativeBtnText(context.getString(R.string.btn_cancel))
             .setCancelableOnTouchOutside(true)
             .OnPositiveClicked(clickListener)

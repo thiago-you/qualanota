@@ -2,6 +2,7 @@
     <string name="app_name">Qual a Nota</string>
     <string name="guest">Convidado</string>
     <string name="owners">Lugares</string>
+    <string name="demo">Demo</string>
     <string name="reviews">Avaliações</string>
     <string name="delete_item">Deletar Item</string>
     <string name="description">Descrição</string>
@@ -20,4 +21,10 @@
     <string name="review_label">Avaliação:</string>
     <string name="add_new_item_desc">Adicionar novo item</string>
     <string name="save_item_desc">Salvar item</string>
+    <string name="confirm_delete_action">Deseja mesmo deletar este item?</string>
+    <string name="confirm_populate_action">Deseja mesmo cadastrar os dados de demonstração? Todos os dados atuais serão perdidos.</string>
+    <string name="btn_delete">Deletar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="data_populate_success">Dados de demonstração cadastrados com sucesso.</string>
 </resources>
