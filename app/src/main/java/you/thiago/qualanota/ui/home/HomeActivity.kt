@@ -74,6 +74,8 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
             lifecycleScope.launch(Dispatchers.Main) {
                 recyclerView.apply {
                     layoutManager = LinearLayoutManager(this@HomeActivity)
+                    isNestedScrollingEnabled = false
+                    setHasFixedSize(false)
                     adapter = ItemReviewAdapter(list, this@HomeActivity)
                 }
             }

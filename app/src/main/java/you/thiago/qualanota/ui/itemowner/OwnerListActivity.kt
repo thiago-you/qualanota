@@ -71,6 +71,8 @@ class OwnerListActivity : AppCompatActivity(), ItemOwnerAdapter.AdapterItemOwner
             lifecycleScope.launch(Dispatchers.Main) {
                 recyclerView.apply {
                     layoutManager = LinearLayoutManager(this@OwnerListActivity)
+                    isNestedScrollingEnabled = false
+                    setHasFixedSize(false)
                     adapter = ItemOwnerAdapter(list, this@OwnerListActivity)
                 }
             }
