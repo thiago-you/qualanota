@@ -80,7 +80,6 @@
                     android:text="@string/owners"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/imgOwnersIcon"
                     app:layout_constraintStart_toStartOf="@+id/imgOwnersIcon"
                     app:layout_constraintTop_toBottomOf="@+id/imgOwnersIcon" />
