@@ -17,7 +17,7 @@
     <string name="location_label">Localização:</string>
     <string name="name_label">Nome:</string>
     <string name="title_label">Título:</string>
-    <string name="owner_label">Lugar:</string>
+    <string name="owner_label">-</string>
     <string name="review_label">Avaliação:</string>
     <string name="add_new_item_desc">Adicionar novo item</string>
     <string name="save_item_desc">Salvar item</string>
