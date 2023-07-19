@@ -6,8 +6,7 @@
         android:type="linear"
         android:startColor="@color/purple_dark"
         android:centerColor="@color/purple_alt"
-        android:centerX="1"
-        android:endColor="@color/purple_dark"
+        android:endColor="@color/purple"
         android:useLevel="false"/>
 
 </shape>

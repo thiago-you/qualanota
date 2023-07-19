@@ -11,7 +11,7 @@
         android:theme="@style/Base.Theme.QualANota.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/color_primary"
         android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/guest"
+        android:textColor="?android:textColorPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/img_launcher_icon"
         app:layout_constraintStart_toStartOf="@+id/img_launcher_icon"
@@ -57,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/blue"
+            app:tint="@color/purple_alt"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -65,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/owners"
+            android:textColor="?android:textColorPrimary"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imgOwnersIcon"
@@ -79,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="@string/reviews"
+        android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
