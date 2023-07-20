@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import you.thiago.koalaloadinglibrary.KoalaLoadingView
 import you.thiago.qualanota.R
 import you.thiago.qualanota.components.ConfirmPopulateDataAlert
 import you.thiago.qualanota.data.Database
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
     private val fabNewItemAction: FloatingActionButton by lazy { findViewById(R.id.fabNewItemAction) }
     private val fabListOwnersAction: View by lazy { findViewById(R.id.listOwnersAction) }
     private val populateDataAction: View by lazy { findViewById(R.id.populateDataAction) }
+    private val loadingView: KoalaLoadingView by lazy { findViewById(R.id.loading_view) }
 
     private val newItemResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -78,11 +80,19 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
     }
 
     private fun setupList() {
+        recyclerView.visibility = View.INVISIBLE
+        loadingView.start()
+
         lifecycleScope.launch(Dispatchers.IO) {
             val list = Database.get().itemReviewDao().getAll()
 
+            Thread.sleep(3000)
+
             lifecycleScope.launch(Dispatchers.Main) {
+                loadingView.stop()
+
                 recyclerView.apply {
+                    visibility = View.VISIBLE
                     layoutManager = LinearLayoutManager(this@HomeActivity)
                     isNestedScrollingEnabled = false
                     setHasFixedSize(false)
@@ -105,6 +115,9 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
     }
 
     private fun populateData() {
+        recyclerView.visibility = View.INVISIBLE
+        loadingView.start()
+
         lifecycleScope.launch(Dispatchers.IO) {
             Database.get().clearAllTables()
 
