@@ -27,38 +27,37 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Titulo da Avaliação" />
 
-            <TextView
-                android:id="@+id/labelOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/owner_label"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:textStyle="bold"
+            <ImageView
+                android:id="@+id/iconOwner"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/baseline_store_24"
+                app:layout_constraintBottom_toBottomOf="@+id/owner"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toTopOf="@+id/owner"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/owner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginStart="4dp"
-                android:textSize="13sp"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/labelOwner"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintStart_toEndOf="@+id/labelOwner"
-                app:layout_constraintTop_toTopOf="@+id/labelOwner"
+                app:layout_constraintStart_toEndOf="@+id/iconOwner"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="Nome do Lugar" />
 
             <View
@@ -69,14 +68,14 @@
                 android:background="@color/divider"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/labelOwner" />
-            
+                app:layout_constraintTop_toBottomOf="@+id/owner" />
+
             <TextView
                 android:id="@+id/review"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider"

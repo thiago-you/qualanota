@@ -12,86 +12,61 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:background="@drawable/gradient_card">
-
-        <TextView
-            android:id="@+id/labelName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/name_label"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/labelName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/labelName"
-            app:layout_constraintTop_toTopOf="@+id/labelName"
-            tools:text="Nome do lugar" />
-
-        <TextView
-            android:id="@+id/labelLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:text="@string/location_label"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelName" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nome do lugar" />
+
+        <ImageView
+            android:id="@+id/iconLocation"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/baseline_location_on_24"
+            app:layout_constraintBottom_toBottomOf="@+id/location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/location"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/labelLocation"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/labelLocation"
-            app:layout_constraintTop_toTopOf="@+id/labelLocation"
+            app:layout_constraintStart_toEndOf="@+id/iconLocation"
+            app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="Nome do Lugar" />
-
-        <TextView
-            android:id="@+id/labelDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/description_label"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelLocation" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/labelDescription"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/labelDescription"
-            app:layout_constraintTop_toTopOf="@+id/labelDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/iconLocation"
+            app:layout_constraintTop_toBottomOf="@+id/location"
             tools:text="Descrição do lugar" />
 
         <ImageView
