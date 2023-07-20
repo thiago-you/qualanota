@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:background="@drawable/gradient_card">
+            android:background="@drawable/gradient_card"
+            android:minHeight="130dp">
 
             <TextView
                 android:id="@+id/title"
@@ -51,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -60,25 +61,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="Nome do Lugar" />
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/divider"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
+            <ImageView
+                android:id="@+id/iconReview"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/baseline_restaurant_menu_24"
+                app:layout_constraintBottom_toBottomOf="@+id/review"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/owner" />
+                app:layout_constraintTop_toTopOf="@+id/review"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/review"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/iconReview"
+                app:layout_constraintTop_toBottomOf="@+id/owner"
                 tools:text="Descrição da Avaliação" />
 
             <ImageView
