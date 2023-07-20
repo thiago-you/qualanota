@@ -41,7 +41,12 @@ class ItemReviewAdapter(
         fun setupItem(itemReview: ItemReview) {
             title.text = itemReview.title
             owner.text = itemReview.owner
-            review.text = itemReview.review
+
+            if (!itemReview.review.isNullOrBlank()) {
+                review.text = itemReview.review
+            } else {
+                review.text = view.context.getString(R.string.empty_review)
+            }
 
             toggleRating(itemReview.rating)
 

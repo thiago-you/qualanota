@@ -27,4 +27,6 @@
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_confirm">Confirmar</string>
     <string name="data_populate_success">Dados de demonstração cadastrados com sucesso.</string>
+    <string name="not_set">Não informado</string>
+    <string name="empty_review">Sem avaliação</string>
 </resources>

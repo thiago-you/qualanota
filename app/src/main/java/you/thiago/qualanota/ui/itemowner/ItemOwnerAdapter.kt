@@ -33,8 +33,13 @@ class ItemOwnerAdapter(
 
         fun setupItem(itemOwner: ItemOwner) {
             name.text = itemOwner.name
-            location.text = itemOwner.location
             description.text = itemOwner.description
+
+            if (!itemOwner.location.isNullOrBlank()) {
+                location.text = itemOwner.location
+            } else {
+                location.text = view.context.getString(R.string.not_set)
+            }
 
             view.setOnClickListener {
                 listener.onAdapterClick(itemOwner)
