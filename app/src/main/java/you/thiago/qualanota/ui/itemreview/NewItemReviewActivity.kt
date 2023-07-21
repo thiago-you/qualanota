@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import you.thiago.koalaloadinglibrary.KoalaLoadingDialog
 import you.thiago.qualanota.R
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemReview
@@ -45,6 +46,8 @@ class NewItemReviewActivity : AppCompatActivity() {
     private val ratingStarEnabled3 by lazy { findViewById<ImageView>(R.id.star_enabled_3) }
     private val ratingStarEnabled4 by lazy { findViewById<ImageView>(R.id.star_enabled_4) }
     private val ratingStarEnabled5 by lazy { findViewById<ImageView>(R.id.star_enabled_5) }
+
+    private var loadingDialog: KoalaLoadingDialog? = null
 
     private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -93,8 +96,17 @@ class NewItemReviewActivity : AppCompatActivity() {
 
                 ItemReviewValidator.validate(itemReview)
 
+                loadingDialog = KoalaLoadingDialog().also {
+                    it.setText(getString(R.string.saving))
+                    it.show(supportFragmentManager, "loading")
+                }
+
                 lifecycleScope.launch(Dispatchers.IO) {
                     Database.get().itemReviewDao().insert(itemReview)
+
+                    Thread.sleep(2000)
+
+                    loadingDialog?.dismissAllowingStateLoss()
 
                     setResult(Activity.RESULT_OK)
                     finish()
@@ -102,6 +114,7 @@ class NewItemReviewActivity : AppCompatActivity() {
 
                 return@runCatching
             }.onFailure {
+                loadingDialog?.dismissAllowingStateLoss()
                 Toast.makeText(this@NewItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
@@ -112,30 +125,36 @@ class NewItemReviewActivity : AppCompatActivity() {
     }
 
     private fun loadSpinner(selected: String = "") {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val list = Database.get().itemOwnerDao().getAll().map { it.name }.toMutableList()
+        runCatching {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val list = Database.get().itemOwnerDao().getAll().map { it.name }.toMutableList()
 
-            list.add(0, "Selecione")
+                list.add(0, "Selecione")
 
-            lifecycleScope.launch(Dispatchers.Main) {
-                val ownerAdapter = ArrayAdapter(
-                    this@NewItemReviewActivity,
-                    android.R.layout.simple_spinner_item,
-                    list.toTypedArray(),
-                )
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val ownerAdapter = ArrayAdapter(
+                        this@NewItemReviewActivity,
+                        android.R.layout.simple_spinner_item,
+                        list.toTypedArray(),
+                    )
 
-                ownerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    ownerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-                with(owner) {
-                    adapter = ownerAdapter
-                    prompt = "Selecione"
-                    gravity = Gravity.CENTER
+                    with(owner) {
+                        adapter = ownerAdapter
+                        prompt = "Selecione"
+                        gravity = Gravity.CENTER
 
-                    if (selected.isNotBlank()) {
-                        setSelection(list.indexOf(selected), false)
+                        if (selected.isNotBlank()) {
+                            setSelection(list.indexOf(selected), false)
+                        }
                     }
                 }
             }
+
+            return@runCatching
+        }.onFailure {
+            Toast.makeText(this@NewItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
         }
     }
 

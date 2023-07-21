@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import you.thiago.koalaloadinglibrary.KoalaLoadingDialog
 import you.thiago.qualanota.R
 import you.thiago.qualanota.components.DeleteAlert
 import you.thiago.qualanota.data.Database
@@ -29,6 +30,8 @@ class EditItemOwnerActivity : AppCompatActivity() {
 
     private val btnSaveAction: FloatingActionButton by lazy { findViewById(R.id.fabSaveAction) }
     private val btnActionDelete: TextView by lazy { findViewById(R.id.actionDelete) }
+
+    private var loadingDialog: KoalaLoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,9 +88,15 @@ class EditItemOwnerActivity : AppCompatActivity() {
 
                 ItemOwnerValidator.validate(itemOwner)
 
+                loadingDialog = KoalaLoadingDialog().also {
+                    it.setText(getString(R.string.saving))
+                    it.show(supportFragmentManager, "loading")
+                }
+
                 lifecycleScope.launch(Dispatchers.IO) {
                     Database.get().itemOwnerDao().update(itemOwner)
 
+                    Thread.sleep(2000)
                     updateItemReviews(itemOwner)
 
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -96,6 +105,8 @@ class EditItemOwnerActivity : AppCompatActivity() {
                             putExtra("updated", true)
                         }
 
+                        loadingDialog?.dismissAllowingStateLoss()
+
                         setResult(Activity.RESULT_OK, data)
                         finish()
                     }
@@ -103,24 +114,39 @@ class EditItemOwnerActivity : AppCompatActivity() {
 
                 return@runCatching
             }.onFailure {
+                loadingDialog?.dismissAllowingStateLoss()
                 Toast.makeText(this@EditItemOwnerActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
 
         btnActionDelete.setOnClickListener {
             DeleteAlert.show(this) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    Database.get().itemOwnerDao().delete(itemOwner)
-
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        val data = Intent().apply {
-                            putExtra("id", itemOwner.id)
-                            putExtra("deleted", true)
-                        }
-
-                        setResult(Activity.RESULT_OK, data)
-                        finish()
+                runCatching {
+                    loadingDialog = KoalaLoadingDialog().also {
+                        it.setText(getString(R.string.deleting))
+                        it.show(supportFragmentManager, "loading")
                     }
+
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        Database.get().itemOwnerDao().delete(itemOwner)
+
+                        Thread.sleep(2000)
+
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            val data = Intent().apply {
+                                putExtra("id", itemOwner.id)
+                                putExtra("deleted", true)
+                            }
+
+                            loadingDialog?.dismissAllowingStateLoss()
+
+                            setResult(Activity.RESULT_OK, data)
+                            finish()
+                        }
+                    }
+                }.onFailure {
+                    loadingDialog?.dismissAllowingStateLoss()
+                    Toast.makeText(this@EditItemOwnerActivity, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         }

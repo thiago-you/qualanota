@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
         lifecycleScope.launch(Dispatchers.IO) {
             val list = Database.get().itemReviewDao().getAll()
 
-            Thread.sleep(3000)
+            Thread.sleep(2000)
 
             lifecycleScope.launch(Dispatchers.Main) {
                 loadingView.stop()

@@ -29,4 +29,6 @@
     <string name="data_populate_success">Dados de demonstração cadastrados com sucesso.</string>
     <string name="not_set">Não informado</string>
     <string name="empty_review">Sem avaliação</string>
+    <string name="saving">S A L V A N D O</string>
+    <string name="deleting">D E L E T A N D O</string>
 </resources>

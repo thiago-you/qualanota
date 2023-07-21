@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import you.thiago.koalaloadinglibrary.KoalaLoadingDialog
 import you.thiago.qualanota.R
 import you.thiago.qualanota.components.DeleteAlert
 import you.thiago.qualanota.data.Database
@@ -49,6 +50,8 @@ class EditItemReviewActivity : AppCompatActivity() {
     private val ratingStarEnabled3 by lazy { findViewById<ImageView>(R.id.star_enabled_3) }
     private val ratingStarEnabled4 by lazy { findViewById<ImageView>(R.id.star_enabled_4) }
     private val ratingStarEnabled5 by lazy { findViewById<ImageView>(R.id.star_enabled_5) }
+
+    private var loadingDialog: KoalaLoadingDialog? = null
 
     private val newOwnerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -121,7 +124,14 @@ class EditItemReviewActivity : AppCompatActivity() {
 
                 ItemReviewValidator.validate(itemReview)
 
+                loadingDialog = KoalaLoadingDialog().also {
+                    it.setText(getString(R.string.saving))
+                    it.show(supportFragmentManager, "loading")
+                }
+
                 lifecycleScope.launch(Dispatchers.IO) {
+                    Thread.sleep(2000)
+
                     Database.get().itemReviewDao().update(itemReview)
 
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -130,6 +140,8 @@ class EditItemReviewActivity : AppCompatActivity() {
                             putExtra("updated", true)
                         }
 
+                        loadingDialog?.dismissAllowingStateLoss()
+
                         setResult(Activity.RESULT_OK, data)
                         finish()
                     }
@@ -137,24 +149,39 @@ class EditItemReviewActivity : AppCompatActivity() {
 
                 return@runCatching
             }.onFailure {
+                loadingDialog?.dismissAllowingStateLoss()
                 Toast.makeText(this@EditItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
             }
         }
 
         actionDelete.setOnClickListener {
             DeleteAlert.show(this) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    Database.get().itemReviewDao().delete(itemReview)
+                runCatching {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        Database.get().itemReviewDao().delete(itemReview)
 
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        val data = Intent().apply {
-                            putExtra("id", itemReview.id)
-                            putExtra("deleted", true)
+                        loadingDialog = KoalaLoadingDialog().also {
+                            it.setText(getString(R.string.deleting))
+                            it.show(supportFragmentManager, "loading")
                         }
 
-                        setResult(Activity.RESULT_OK, data)
-                        finish()
+                        Thread.sleep(2000)
+
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            val data = Intent().apply {
+                                putExtra("id", itemReview.id)
+                                putExtra("deleted", true)
+                            }
+
+                            loadingDialog?.dismissAllowingStateLoss()
+
+                            setResult(Activity.RESULT_OK, data)
+                            finish()
+                        }
                     }
+                }.onFailure {
+                    loadingDialog?.dismissAllowingStateLoss()
+                    Toast.makeText(this@EditItemReviewActivity, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         }
