@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import you.thiago.koalaloadinglibrary.KoalaLoadingView
 import you.thiago.qualanota.R
+import you.thiago.qualanota.components.ConfirmDataClearAlert
 import you.thiago.qualanota.components.ConfirmPopulateDataAlert
 import you.thiago.qualanota.data.Database
 import you.thiago.qualanota.data.model.ItemOwner
@@ -27,8 +28,9 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
 
     private val recyclerView: RecyclerView by lazy { findViewById(R.id.recyclerview) }
     private val fabNewItemAction: FloatingActionButton by lazy { findViewById(R.id.fabNewItemAction) }
-    private val fabListOwnersAction: View by lazy { findViewById(R.id.listOwnersAction) }
+    private val listOwnersAction: View by lazy { findViewById(R.id.listOwnersAction) }
     private val populateDataAction: View by lazy { findViewById(R.id.populateDataAction) }
+    private val clearDataAction: View by lazy { findViewById(R.id.clearDataAction) }
     private val loadingView: KoalaLoadingView by lazy { findViewById(R.id.loading_view) }
 
     private val newItemResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -68,13 +70,19 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
             newItemResult.launch(Intent(this, NewItemReviewActivity::class.java))
         }
 
-        fabListOwnersAction.setOnClickListener {
+        listOwnersAction.setOnClickListener {
             listItemOwnerResult.launch(Intent(this, OwnerListActivity::class.java))
         }
 
         populateDataAction.setOnClickListener {
             ConfirmPopulateDataAlert.show(this) {
                 populateData()
+            }
+        }
+
+        clearDataAction.setOnClickListener {
+            ConfirmDataClearAlert.show(this) {
+                clearData()
             }
         }
     }
@@ -127,6 +135,21 @@ class HomeActivity : AppCompatActivity(), ItemReviewAdapter.AdapterItemReviewCli
 
             lifecycleScope.launch(Dispatchers.Main) {
                 Toast.makeText(this@HomeActivity, getString(R.string.data_populate_success), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun clearData() {
+        recyclerView.visibility = View.INVISIBLE
+        loadingView.start()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            Database.get().clearAllTables()
+
+            setupList()
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                Toast.makeText(this@HomeActivity, getString(R.string.data_clear_success), Toast.LENGTH_LONG).show()
             }
         }
     }

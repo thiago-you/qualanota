@@ -3,6 +3,7 @@
     <string name="guest">Convidado</string>
     <string name="owners">Lugares</string>
     <string name="demo">Demo</string>
+    <string name="clear">Clear</string>
     <string name="reviews">Avaliações</string>
     <string name="delete_item">Deletar Item</string>
     <string name="description">Descrição</string>
@@ -23,10 +24,12 @@
     <string name="save_item_desc">Salvar item</string>
     <string name="confirm_delete_action">Deseja mesmo deletar este item?</string>
     <string name="confirm_populate_action">Deseja mesmo cadastrar os dados de demonstração? Todos os dados atuais serão perdidos.</string>
+    <string name="confirm_clear_action">Deseja mesmo deletar todos os dados?</string>
     <string name="btn_delete">Deletar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_confirm">Confirmar</string>
     <string name="data_populate_success">Dados de demonstração cadastrados com sucesso.</string>
+    <string name="data_clear_success">Todos os dados foram limpados com sucesso.</string>
     <string name="not_set">Não informado</string>
     <string name="empty_review">Sem avaliação</string>
     <string name="saving">S A L V A N D O</string>
