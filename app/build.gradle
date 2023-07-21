@@ -53,7 +53,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 
     implementation 'com.github.salehyarahmadi:AndExAlertDialog:v1.0.1'
-    implementation 'com.github.thiago-you:KoalaLoadingView:0.1'
+    implementation 'com.github.thiago-you:KoalaLoadingView:0.2'
     
     implementation(
         [group: 'androidx.lifecycle', name: 'lifecycle-runtime-ktx', version: "$lifecycleVersion"],
